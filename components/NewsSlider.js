@@ -1,25 +1,27 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
-import MovieSliderItem, { SLIDER_WIDTH, ITEM_WIDTH } from './MovieSliderItem';
-import MovieTab from './MovieTab';
-import MovieInfo from './MovieInfo';
 import data from '../data';
+import NewsSliderItem, { ITEM_WIDTH, SLIDER_WIDTH } from './NewsSliderItem';
+import NewsSliderTab from './NewsSliderTab';
 
-const MovieSlider = () => {
-  const dataMovies = data.movies;
+const NewsSlider = () => {
+  const dataMovies = data.slider;
   const carouselRef = React.useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   return (
-    <View>
-      <MovieTab />
+    <View
+      style={{
+        backgroundColor: '#fff',
+      }}
+    >
+      <NewsSliderTab />
       <Carousel
-        loop
         layout='default'
         ref={carouselRef}
         data={dataMovies}
-        renderItem={MovieSliderItem}
+        renderItem={NewsSliderItem}
         sliderWidth={SLIDER_WIDTH}
         itemWidth={ITEM_WIDTH}
         useScrollView
@@ -27,9 +29,8 @@ const MovieSlider = () => {
           setCurrentIndex(slideIndex);
         }}
       />
-      <MovieInfo data={dataMovies[currentIndex]} />
     </View>
   );
 };
 
-export default MovieSlider;
+export default NewsSlider;

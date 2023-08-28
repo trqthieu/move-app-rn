@@ -2,12 +2,12 @@ import { View, Text, StyleSheet } from 'react-native';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 
-export default function MovieInfo() {
+export default function MovieInfo({ data }) {
   return (
     <View style={styles.container}>
       <View style={styles.movieInfo}>
         <View style={styles.head}>
-          <Text style={styles.name}>Oppenheimer</Text>
+          <Text style={styles.name}>{data.name}</Text>
           <View style={styles.age}>
             <Text style={styles.ageText}>T16</Text>
           </View>
