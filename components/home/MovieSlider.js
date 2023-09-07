@@ -4,9 +4,9 @@ import Carousel from 'react-native-snap-carousel';
 import MovieSliderItem, { SLIDER_WIDTH, ITEM_WIDTH } from './MovieSliderItem';
 import MovieTab from './MovieTab';
 import MovieInfo from './MovieInfo';
-import data from '../data';
+import data from '../../data';
 
-const MovieSlider = () => {
+const MovieSlider = ({ navigator }) => {
   const dataMovies = data.movies;
   const carouselRef = React.useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);

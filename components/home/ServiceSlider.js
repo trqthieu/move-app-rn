@@ -5,7 +5,7 @@ import ServiceSliderItem, {
   SLIDER_WIDTH,
   ITEM_WIDTH,
 } from './ServiceSliderItem';
-import data from '../data';
+import data from '../../data';
 
 const ServiceSlider = () => {
   const dataMovies = data.slider;

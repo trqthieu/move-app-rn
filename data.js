@@ -33,6 +33,32 @@ const data = {
       imgUrl: require('./assets/images/discount.jpg'),
     },
   ],
+  menu: [
+    {
+      icon: 'home',
+      name: 'Trang chủ',
+    },
+    {
+      icon: 'person-circle',
+      name: 'Thành viên CGV',
+    },
+    {
+      icon: 'information-circle',
+      name: 'Rạp CGV',
+    },
+    {
+      icon: 'information-circle',
+      name: 'Rạp đặc biệt',
+    },
+    {
+      icon: 'gift',
+      name: 'Tin mới & Ưu đãi',
+    },
+    {
+      icon: 'information-circle',
+      name: 'Vé của tôi',
+    },
+  ],
 };
 
 export default data;

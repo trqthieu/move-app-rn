@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
-import data from '../data';
+import data from '../../data';
 import NewsSliderItem, { ITEM_WIDTH, SLIDER_WIDTH } from './NewsSliderItem';
 import NewsSliderTab from './NewsSliderTab';
 
