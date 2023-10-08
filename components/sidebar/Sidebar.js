@@ -5,15 +5,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import { close } from '../../redux/reducer/sidebarSlice';
 import UserInfo from './UserInfo';
 import SidebarMenu from './SidebarMenu';
+import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Sidebar() {
+  const navigation = useNavigation();
+  const handleLogout = async () => {
+    await AsyncStorage.removeItem('accessToken');
+    navigation.navigate('LoginScreen');
+    dispatch(close());
+  };
   const dispatch = useDispatch();
   return (
     <View style={styles.container}>
       <View style={styles.content}>
         <UserInfo />
         <SidebarMenu />
-        <Pressable>
+        <Pressable onPress={handleLogout}>
           <Text style={styles.btnLogout}>Đăng xuất</Text>
         </Pressable>
       </View>

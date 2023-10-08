@@ -15,6 +15,9 @@ const Slider = ({ data }) => {
         sliderWidth={SLIDER_WIDTH}
         itemWidth={ITEM_WIDTH}
         useScrollView
+        autoplay={true}
+        autoplayInterval={3000}
+        loop={true}
       />
     </View>
   );

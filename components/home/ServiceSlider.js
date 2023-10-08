@@ -30,6 +30,9 @@ const ServiceSlider = () => {
         onSnapToItem={slideIndex => {
           setCurrentIndex(slideIndex);
         }}
+        autoplay={true}
+        autoplayInterval={3000}
+        loop={true}
       />
       <Pagination
         dotsLength={dataMovies.length}

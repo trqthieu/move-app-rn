@@ -6,11 +6,10 @@ import MovieTab from './MovieTab';
 import MovieInfo from './MovieInfo';
 import data from '../../data';
 
-const MovieSlider = ({ navigator }) => {
-  const dataMovies = data.movies;
+const MovieSlider = ({ navigation, moviesData }) => {
+  const dataMovies = moviesData;
   const carouselRef = React.useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-
   return (
     <View>
       <MovieTab />
@@ -19,7 +18,15 @@ const MovieSlider = ({ navigator }) => {
         layout='default'
         ref={carouselRef}
         data={dataMovies}
-        renderItem={MovieSliderItem}
+        renderItem={(item, index) => {
+          return (
+            <MovieSliderItem
+              item={item.item}
+              index={item.index}
+              navigation={navigation} // Pass navigator as a prop to MovieSliderItem
+            />
+          );
+        }}
         sliderWidth={SLIDER_WIDTH}
         itemWidth={ITEM_WIDTH}
         useScrollView

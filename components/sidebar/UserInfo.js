@@ -22,7 +22,7 @@ export default function UserInfo() {
         </View>
         <Icon name='settings' size={25} color='#fff' />
       </View>
-      <View style={styles.totalWrap}>
+      {/* <View style={styles.totalWrap}>
         <View style={styles.total}>
           <Text style={styles.totalText}>Tổng chi tiêu</Text>
           <Text style={styles.totalNumber}>0 đ</Text>
@@ -31,7 +31,7 @@ export default function UserInfo() {
           <Text style={styles.totalText}>Điểm thưởng</Text>
           <Text style={styles.totalNumber}>0</Text>
         </View>
-      </View>
+      </View> */}
     </View>
   );
 }

@@ -1,18 +1,32 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import data from '../../data';
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { close } from '../../redux/reducer/sidebarSlice';
 
 export default function SidebarMenu() {
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
   const menuData = data.menu;
   return (
     <View style={styles.container}>
-      {menuData.map(menu => (
-        <View style={styles.menuItem}>
-          <Icon name={menu.icon} size={25} color='#fff' />
-          <Text style={styles.menuText}>{menu.name}</Text>
-        </View>
-      ))}
+      {menuData.map((menu, index) => {
+        return (
+          <TouchableOpacity
+            style={styles.menuItem}
+            key={index}
+            onPress={() => {
+              dispatch(close());
+              navigation.navigate(menu.screen);
+            }}
+          >
+            <Icon name={menu.icon} size={25} color='#fff' />
+            <Text style={styles.menuText}>{menu.name}</Text>
+          </TouchableOpacity>
+        );
+      })}
     </View>
   );
 }

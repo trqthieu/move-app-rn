@@ -28,6 +28,9 @@ const NewsSlider = () => {
         onSnapToItem={slideIndex => {
           setCurrentIndex(slideIndex);
         }}
+        autoplay={true}
+        autoplayInterval={3000}
+        loop={true}
       />
     </View>
   );

@@ -1,25 +1,28 @@
 import { View, Text, StyleSheet } from 'react-native';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
+import { formatDate, formatTime, toHoursAndMinutes } from '../../utils/index';
 
 export default function MovieInfo({ data }) {
   return (
     <View style={styles.container}>
       <View style={styles.movieInfo}>
         <View style={styles.head}>
-          <Text style={styles.name}>{data.name}</Text>
+          <Text style={styles.name} numberOfLines={1}>
+            {data?.name}
+          </Text>
           <View style={styles.age}>
-            <Text style={styles.ageText}>T16</Text>
+            <Text style={styles.ageText}>T{data?.ageLimit}</Text>
           </View>
         </View>
         <View style={styles.body}>
-          <Text style={styles.time}>2 giờ 9 phút</Text>
-          <Text style={styles.premiere}>01/09/2023</Text>
+          <Text style={styles.time}>{toHoursAndMinutes(data?.time)}</Text>
+          <Text style={styles.premiere}>{formatDate(data?.timeRelease)}</Text>
         </View>
       </View>
-      <TouchableOpacity style={styles.btnBooking} activeOpacity={0.6}>
+      {/* <TouchableOpacity style={styles.btnBooking} activeOpacity={0.6}>
         <Text style={styles.btnBookingText}>Đặt vé</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 }
@@ -32,6 +35,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   movieInfo: {
+    maxWidth: '70%',
     padding: 10,
     justifyContent: 'space-between',
   },
