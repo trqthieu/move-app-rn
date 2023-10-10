@@ -19,7 +19,7 @@ import moment from 'moment';
 import request from '../api/request';
 import { isValidEmail } from '../utils';
 
-export default function RegisterScreen({ navigation }) {
+export default function ChangeInfoScreen({ navigation }) {
   const [gender, setGender] = useState([
     { title: 'Nam', value: 1 },
     {
@@ -31,22 +31,27 @@ export default function RegisterScreen({ navigation }) {
   const [data, setData] = useState({
     fullName: '',
     email: '',
-    password: '',
     address: '',
     dob: new Date(),
     gender: '',
   });
+  console.log('data', data);
 
   useEffect(() => {
-    setData({
-      fullName: '',
-      email: '',
-      password: '',
-      address: '',
-      dob: new Date(),
-      gender: '',
-    });
+    getMyInfo();
   }, []);
+
+  const getMyInfo = async () => {
+    const responseInfo = await request.getMyInfo();
+    const data = responseInfo.data[0];
+    setData({
+      fullName: data.fullName,
+      email: data.email,
+      address: data.address,
+      dob: new Date(data.dateOfBirth),
+      gender: data.gender,
+    });
+  };
 
   const [date, setDate] = useState(new Date()); // Initial date value
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -65,44 +70,25 @@ export default function RegisterScreen({ navigation }) {
     setShowDatePicker(true);
   };
 
-  const handleRegister = async () => {
-    const { fullName, email, password, address, dob, gender } = data;
-    if (
-      !fullName.trim().length ||
-      !email.trim().length ||
-      !address.trim().length
-    ) {
+  const handleUpdate = async () => {
+    const { fullName, dob: dateOfBirth, address, gender, avatar } = data;
+    if (!fullName.trim().length || !address.trim().length) {
       ToastAndroid.show('Vui lòng điền đầy đủ thông tin', ToastAndroid.SHORT);
       return;
     }
-    if (!isValidEmail(email)) {
-      ToastAndroid.show('Email không hợp lệ', ToastAndroid.SHORT);
-      return;
-    }
-    if (password.length < 6) {
-      ToastAndroid.show(
-        'Độ dài mật khẩu phải từ 6 ký tự trở lên',
-        ToastAndroid.SHORT
-      );
-      return;
-    }
 
-    const responseRegister = await request.register({
+    const responseUpdate = await request.updateMyInfo({
       fullName,
-      email,
-      password,
+      dateOfBirth: moment(dateOfBirth).format('YYYY-MM-DD'),
       address,
-      dob: moment(dob).format('YYYY-MM-DD'),
-      gender: gender || 1,
+      gender,
+      avatar,
     });
-    if (responseRegister.data.success) {
-      ToastAndroid.show(
-        'Đăng ký thành công. Hãy kiểm tra email của bạn để xác thực tài khoản',
-        ToastAndroid.LONG
-      );
-      navigation.navigate('LoginScreen');
+    if (responseUpdate.data.success) {
+      ToastAndroid.show('Cập nhật thành công', ToastAndroid.SHORT);
+      navigation.navigate('HomeScreen');
     } else {
-      ToastAndroid.show(responseRegister.data.data.message, ToastAndroid.SHORT);
+      ToastAndroid.show(responseUpdate.data.data.message, ToastAndroid.SHORT);
     }
   };
   return (
@@ -158,28 +144,13 @@ export default function RegisterScreen({ navigation }) {
           <View style={styles.formCardItemFull}>
             <Text style={styles.formCardItemText}>Email</Text>
             <TextInput
+              editable={false}
               style={styles.formCardItemInput}
               value={data.email}
               onChangeText={text =>
                 setData({
                   ...data,
                   email: text.trim(),
-                })
-              }
-            />
-          </View>
-        </View>
-        <View style={styles.formCardRow}>
-          <View style={styles.formCardItemFull}>
-            <Text style={styles.formCardItemText}>Mật khẩu</Text>
-            <TextInput
-              secureTextEntry={true}
-              style={styles.formCardItemInput}
-              value={data.password}
-              onChangeText={text =>
-                setData({
-                  ...data,
-                  password: text.trim(),
                 })
               }
             />
@@ -241,9 +212,9 @@ export default function RegisterScreen({ navigation }) {
           <TouchableOpacity
             activeOpacity={0.8}
             style={styles.btnCheckout}
-            onPress={handleRegister}
+            onPress={handleUpdate}
           >
-            <Text style={styles.btnCheckoutText}>Đăng ký</Text>
+            <Text style={styles.btnCheckoutText}>Cập nhật</Text>
           </TouchableOpacity>
         </View>
       </View>

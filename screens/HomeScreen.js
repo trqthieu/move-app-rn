@@ -20,6 +20,7 @@ import { useSelector } from 'react-redux';
 import request from '../api/request';
 import axios from 'axios';
 import axiosClient from '../api';
+import VideoSlider from '../components/home/VideoSlider';
 
 export default function HomeScreen({ navigation }) {
   const sidebar = useSelector(state => state.sidebar);
@@ -53,12 +54,17 @@ export default function HomeScreen({ navigation }) {
         }
       >
         <Slider data={dataSlider} />
-        <MovieSlider navigation={navigation} moviesData={moviesData} />
+        {moviesData.length ? (
+          <MovieSlider navigation={navigation} moviesData={moviesData} />
+        ) : null}
+
         <Search />
         <Slider data={dataDiscount} />
         <ServiceSlider />
-        <NewsSlider />
-        <NewsSlider />
+        <NewsSlider type='DISCOUNT' navigation={navigation} />
+        <NewsSlider type='VIDEO' navigation={navigation} />
+        {/* <VideoSlider /> */}
+        <NewsSlider type='NEWS' navigation={navigation} />
         {/* <Text>Ưu đãi từ đối tác</Text> */}
       </ScrollView>
       {sidebar.open && <Sidebar />}

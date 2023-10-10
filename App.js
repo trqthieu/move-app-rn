@@ -16,6 +16,9 @@ import RegisterScreen from './screens/RegisterScreen';
 import LoginScreen from './screens/LoginScreen';
 import CheckoutDoneScreen from './screens/CheckoutDoneScreen';
 import MyTicketScreen from './screens/MyTicketScreen';
+import NewsDetailScreen from './screens/NewsDetailScreen';
+import MemberScreen from './screens/MemberScreen';
+import ChangeInfoScreen from './screens/ChangeInfoScreen';
 import { BackHandler, Alert } from 'react-native';
 import { useEffect } from 'react';
 const Stack = createNativeStackNavigator();
@@ -93,6 +96,15 @@ export default function App() {
               <Stack.Screen name='LoginScreen' component={LoginScreen} />
               <Stack.Screen name='RegisterScreen' component={RegisterScreen} />
               <Stack.Screen name='MyTicketScreen' component={MyTicketScreen} />
+              <Stack.Screen
+                name='NewsDetailScreen'
+                component={NewsDetailScreen}
+              />
+              <Stack.Screen name='MemberScreen' component={MemberScreen} />
+              <Stack.Screen
+                name='ChangeInfoScreen'
+                component={ChangeInfoScreen}
+              />
             </Stack.Navigator>
           </SafeAreaView>
         </NavigationContainer>

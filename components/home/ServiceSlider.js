@@ -8,7 +8,7 @@ import ServiceSliderItem, {
 import data from '../../data';
 
 const ServiceSlider = () => {
-  const dataMovies = data.slider;
+  const dataServices = data.service;
   const carouselRef = React.useRef(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -22,7 +22,7 @@ const ServiceSlider = () => {
       <Carousel
         layout='default'
         ref={carouselRef}
-        data={dataMovies}
+        data={dataServices}
         renderItem={ServiceSliderItem}
         sliderWidth={SLIDER_WIDTH}
         itemWidth={ITEM_WIDTH}
@@ -35,7 +35,7 @@ const ServiceSlider = () => {
         loop={true}
       />
       <Pagination
-        dotsLength={dataMovies.length}
+        dotsLength={dataServices.length}
         activeDotIndex={currentIndex}
         containerStyle={{
           paddingVertical: 0,

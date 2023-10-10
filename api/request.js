@@ -207,5 +207,15 @@ const request = {
       },
     });
   },
+  getNews(type) {
+    return axiosClient.get('/news', {
+      params: {
+        type,
+      },
+    });
+  },
+  getNewsById(newsId) {
+    return axiosClient.get(`/news/${newsId}`);
+  },
 };
 export default request;

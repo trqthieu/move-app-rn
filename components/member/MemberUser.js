@@ -3,11 +3,11 @@ import React from 'react';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-export default function UserInfo() {
+export default function MemberUser() {
   return (
     <View style={styles.container}>
       <View style={styles.userWrap}>
-        <FAIcon name='bell' size={25} color='#fff' />
+        <FAIcon name='bell' size={25} color='#000' />
         <View style={styles.user}>
           <Image
             source={require('../../assets/images/avatar.jpg')}
@@ -20,7 +20,7 @@ export default function UserInfo() {
           />
           <Text style={styles.name}>Thieu Tran</Text>
         </View>
-        <Icon name='settings' size={25} color='#fff' />
+        <Icon name='settings' size={25} color='#000' />
       </View>
       {/* <View style={styles.totalWrap}>
         <View style={styles.total}>
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   name: {
-    color: '#fff',
+    color: '#000',
     textAlign: 'center',
   },
   totalWrap: {
@@ -57,14 +57,14 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   total: {
-    color: '#fff',
+    color: '#000',
     textAlign: 'center',
     alignItems: 'center',
   },
   totalText: {
-    color: '#fff',
+    color: '#000',
   },
   totalNumber: {
-    color: '#fff',
+    color: '#000',
   },
 });

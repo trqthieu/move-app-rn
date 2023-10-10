@@ -2,10 +2,16 @@ import { View, Text, StyleSheet } from 'react-native';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 
-export default function NewsSliderTab() {
+export default function NewsSliderTab({ type }) {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Tin nóng</Text>
+      <Text style={styles.text}>
+        {type === 'NEWS'
+          ? 'Tin nóng'
+          : type === 'DISCOUNT'
+          ? 'Khuyến mãi'
+          : 'Trailer'}
+      </Text>
       <TouchableOpacity activeOpacity={0.6} style={styles.button}>
         <Text>Xem tất cả</Text>
       </TouchableOpacity>

@@ -12,17 +12,21 @@ import {
 export const SLIDER_WIDTH = Dimensions.get('window').width;
 export const ITEM_WIDTH = Math.round(SLIDER_WIDTH);
 
-const ServiceSliderItem = ({ item, index }) => {
+const VideoSliderItem = ({ item, index }) => {
   return (
     <View style={styles.container} key={index}>
-      {item.map((service, index) => {
-        return (
-          <TouchableOpacity activeOpacity={0.8} key={index}>
-            <Image source={service.imgUrl} style={styles.image} />
-            <Text style={styles.text}>{service.title}</Text>
-          </TouchableOpacity>
-        );
-      })}
+      <TouchableOpacity activeOpacity={0.8}>
+        <Image source={item.imgUrl} style={styles.image} />
+        <Text style={styles.text} numberOfLines={2}>
+          Mua vé xem phim tại CGV với giá chỉ 1000$
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity activeOpacity={0.8}>
+        <Image source={item.imgUrl} style={styles.image} />
+        <Text style={styles.text} numberOfLines={2}>
+          Mua vé xem phim tại CGV với giá chỉ 1000$
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -33,21 +37,22 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    paddingVertical: 20,
+    paddingVertical: 10,
   },
 
   image: {
     width: ITEM_WIDTH,
-    height: SLIDER_WIDTH / 4,
-    width: SLIDER_WIDTH / 4,
-    borderRadius: SLIDER_WIDTH / 8,
+    height: 100,
+    width: SLIDER_WIDTH * 0.44,
+    borderRadius: 4,
   },
   text: {
     textTransform: 'uppercase',
     textAlign: 'center',
     padding: 10,
     fontWeight: '600',
+    maxWidth: SLIDER_WIDTH * 0.44,
   },
 });
 
-export default ServiceSliderItem;
+export default VideoSliderItem;

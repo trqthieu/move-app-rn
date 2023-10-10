@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   ToastAndroid,
 } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { formatNumber } from '../utils';
 import request from '../api/request';
@@ -15,11 +15,28 @@ import request from '../api/request';
 export default function BankScreen({ navigation, route }) {
   const { movie, scheduleId, selectingChair, totalMoney, selectingFoods } =
     route.params;
+  const [minutes, setMinutes] = useState(10);
+  const [seconds, setSeconds] = useState(0);
+
+  const [data, setData] = useState({
+    cardNumber: '',
+    cardExpire: '',
+    cvc: '',
+  });
   const totalMoneyFood = selectingFoods.reduce(
     (a, b) => a + b.price * b.quantity,
     0
   );
   const handleCheckout = async () => {
+    const { cardNumber, cardExpire, cvc } = data;
+    if (
+      !cardNumber.trim().length ||
+      !cardExpire.trim().length ||
+      !cvc.trim().length
+    ) {
+      ToastAndroid.show('Vui lòng điền đầy đủ thông tin', ToastAndroid.SHORT);
+      return;
+    }
     const response = await request.bookingChairs({
       scheduleId,
       selectedChairs: selectingChair.map(chair => chair.id),
@@ -33,6 +50,26 @@ export default function BankScreen({ navigation, route }) {
       }, 1500);
     }
   };
+
+  useEffect(() => {
+    let interval;
+    const updateCountdown = () => {
+      if (minutes === 0 && seconds === 0) {
+        clearInterval(interval);
+      } else if (seconds === 0) {
+        setMinutes(minutes - 1);
+        setSeconds(59);
+      } else {
+        setSeconds(seconds - 1);
+      }
+    };
+
+    interval = setInterval(updateCountdown, 1000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [minutes, seconds]);
+
   return (
     <View style={styles.container}>
       <View style={styles.sumMoneyWrap}>
@@ -54,7 +91,9 @@ export default function BankScreen({ navigation, route }) {
         />
         <View style={styles.time}>
           <Icon name='time' color='#000' size={20} />
-          <Text style={styles.timeValue}>10:00</Text>
+          <Text style={styles.timeValue}>{`${minutes}:${
+            seconds < 10 ? '0' : ''
+          }${seconds}`}</Text>
         </View>
       </View>
       <View style={styles.formCard}>
@@ -64,17 +103,41 @@ export default function BankScreen({ navigation, route }) {
             <TextInput
               placeholder='1234 5678 9101 1234'
               style={styles.formCardItemInput}
+              onChangeText={text =>
+                setData({
+                  ...data,
+                  cardNumber: text.trim(),
+                })
+              }
             />
           </View>
         </View>
         <View style={styles.formCardRow}>
           <View style={styles.formCardItem}>
             <Text style={styles.formCardItemText}>Tháng, năm hết hạn</Text>
-            <TextInput placeholder='12/25' style={styles.formCardItemInput} />
+            <TextInput
+              placeholder='12/25'
+              style={styles.formCardItemInput}
+              onChangeText={text =>
+                setData({
+                  ...data,
+                  cardExpire: text.trim(),
+                })
+              }
+            />
           </View>
           <View style={styles.formCardItem}>
-            <Text style={styles.formCardItemText}>CSC</Text>
-            <TextInput placeholder='123' style={styles.formCardItemInput} />
+            <Text style={styles.formCardItemText}>CVC</Text>
+            <TextInput
+              placeholder='123'
+              style={styles.formCardItemInput}
+              onChangeText={text =>
+                setData({
+                  ...data,
+                  cvc: text.trim(),
+                })
+              }
+            />
           </View>
         </View>
         <View style={styles.commit}>

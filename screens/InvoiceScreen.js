@@ -112,46 +112,6 @@ export default function InvoiceScreen({ navigation, route }) {
             </View>
             <Icon name='checkmark' color='#a83232' size={24} />
           </View>
-          <View style={styles.cardItem}>
-            <View style={styles.cardItemLeft}>
-              <Image
-                source={require('../assets/images/visa.png')}
-                style={styles.cardImage}
-              />
-              <Text>Thẻ quốc tế</Text>
-            </View>
-            <Icon name='checkmark' color='#a83232' size={24} />
-          </View>
-          <View style={styles.cardItem}>
-            <View style={styles.cardItemLeft}>
-              <Image
-                source={require('../assets/images/visa.png')}
-                style={styles.cardImage}
-              />
-              <Text>Thẻ quốc tế</Text>
-            </View>
-            <Icon name='checkmark' color='#a83232' size={24} />
-          </View>
-          <View style={styles.cardItem}>
-            <View style={styles.cardItemLeft}>
-              <Image
-                source={require('../assets/images/visa.png')}
-                style={styles.cardImage}
-              />
-              <Text>Thẻ quốc tế</Text>
-            </View>
-            <Icon name='checkmark' color='#a83232' size={24} />
-          </View>
-          <View style={styles.cardItem}>
-            <View style={styles.cardItemLeft}>
-              <Image
-                source={require('../assets/images/visa.png')}
-                style={styles.cardImage}
-              />
-              <Text>Thẻ quốc tế</Text>
-            </View>
-            <Icon name='checkmark' color='#a83232' size={24} />
-          </View>
         </View>
         <View style={styles.agreement}>
           <Text>

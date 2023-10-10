@@ -33,6 +33,36 @@ const data = {
       imgUrl: require('./assets/images/thumbnail_theequalizer3.jpg'),
     },
   ],
+  service: [
+    [
+      {
+        title: 'Zalopay',
+        imgUrl: require('./assets/images/service1.jpg'),
+      },
+      {
+        title: 'Trải nghiệm',
+        imgUrl: require('./assets/images/service2.png'),
+      },
+      {
+        title: 'Mua 1 tặng 1',
+        imgUrl: require('./assets/images/service3.jpg'),
+      },
+    ],
+    [
+      {
+        title: 'Momo',
+        imgUrl: require('./assets/images/discount4.jpg'),
+      },
+      {
+        title: 'Sinh nhật',
+        imgUrl: require('./assets/images/discount5.png'),
+      },
+      {
+        title: 'Samsung',
+        imgUrl: require('./assets/images/discount6.jpg'),
+      },
+    ],
+  ],
   movies: [],
   foods: [
     {
@@ -87,7 +117,7 @@ const data = {
   discount: [
     {
       name: 'Aenean leo',
-      imgUrl: require('./assets/images/thumbnail_spiderman.jpg'),
+      imgUrl: require('./assets/images/hot.jpg'),
     },
   ],
   menu: [
@@ -99,6 +129,38 @@ const data = {
     {
       icon: 'person-circle',
       name: 'Thành viên CGV',
+      screen: 'MemberScreen',
+    },
+    {
+      icon: 'information-circle',
+      name: 'Rạp CGV',
+      screen: 'HomeScreen',
+    },
+    {
+      icon: 'information-circle',
+      name: 'Rạp đặc biệt',
+      screen: 'HomeScreen',
+    },
+    {
+      icon: 'gift',
+      name: 'Tin mới & Ưu đãi',
+      screen: 'HomeScreen',
+    },
+    {
+      icon: 'information-circle',
+      name: 'Vé của tôi',
+      screen: 'MyTicketScreen',
+    },
+  ],
+  member: [
+    {
+      icon: 'person-circle',
+      name: 'Thông tin tài khoản',
+      screen: 'ChangeInfoScreen',
+    },
+    {
+      icon: 'shield-checkmark',
+      name: 'Thay đổi mật khẩu',
       screen: 'HomeScreen',
     },
     {

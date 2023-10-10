@@ -12,7 +12,7 @@ export default function Header() {
   const dispatch = useDispatch();
 
   const handleUser = async () => {
-    // navigation.navigate('LoginScreen');
+    navigation.navigate('MemberScreen');
   };
 
   return (

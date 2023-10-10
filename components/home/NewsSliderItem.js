@@ -12,21 +12,26 @@ import {
 export const SLIDER_WIDTH = Dimensions.get('window').width;
 export const ITEM_WIDTH = Math.round(SLIDER_WIDTH);
 
-const NewsSliderItem = ({ item, index }) => {
+const NewsSliderItem = ({ item, index, navigation }) => {
+  const handlePressNews = newsId => {
+    navigation.navigate('NewsDetailScreen', { newsId });
+  };
   return (
     <View style={styles.container} key={index}>
-      <TouchableOpacity activeOpacity={0.8}>
-        <Image source={item.imgUrl} style={styles.image} />
-        <Text style={styles.text} numberOfLines={2}>
-          Mua vé xem phim tại CGV với giá chỉ 1000$
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity activeOpacity={0.8}>
-        <Image source={item.imgUrl} style={styles.image} />
-        <Text style={styles.text} numberOfLines={2}>
-          Mua vé xem phim tại CGV với giá chỉ 1000$
-        </Text>
-      </TouchableOpacity>
+      {item.map((newsItem, index) => {
+        return (
+          <TouchableOpacity
+            key={index}
+            activeOpacity={0.8}
+            onPress={() => handlePressNews(newsItem.id)}
+          >
+            <Image source={{ uri: newsItem.image }} style={styles.image} />
+            <Text style={styles.text} numberOfLines={2}>
+              {newsItem.title}
+            </Text>
+          </TouchableOpacity>
+        );
+      })}
     </View>
   );
 };

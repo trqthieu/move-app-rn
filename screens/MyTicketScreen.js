@@ -13,6 +13,7 @@ import request from '../api/request';
 import { formatDate, formatDateTime, formatNumber } from '../utils';
 import moment from 'moment';
 import { useNavigation } from '@react-navigation/native';
+import { Divider } from 'react-native-elements';
 
 const MyTicketScreen = () => {
   const [myTickets, setMyTickets] = useState([]);
@@ -114,17 +115,25 @@ const MyTicketScreen = () => {
                 <Text style={styles.cancelButtonText}>Vé đã bị hủy</Text>
               </TouchableOpacity>
             ) : moment().diff(ticket.premiere, 'milliseconds') < 0 ? (
-              <TouchableOpacity
-                onPress={() => showAlert(ticket.code)}
-                style={styles.cancelButton}
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'flex-end',
+                }}
               >
-                <Text style={styles.cancelButtonText}>Hủy vé</Text>
-              </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => showAlert(ticket.code)}
+                  style={styles.cancelButton}
+                >
+                  <Text style={styles.cancelButtonText}>Hủy vé</Text>
+                </TouchableOpacity>
+              </View>
             ) : (
               <TouchableOpacity activeOpacity={1} style={styles.receiveButton}>
                 <Text style={styles.cancelButtonText}>Hủy vé</Text>
               </TouchableOpacity>
             )}
+            <Divider width={1} color='#ccc' />
           </View>
         ))}
       </ScrollView>
@@ -164,17 +173,21 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     marginTop: 10,
+    width: 100,
+    marginBottom: 10,
   },
   receiveButton: {
     backgroundColor: '#ccc',
     padding: 10,
     borderRadius: 5,
     marginTop: 10,
+    marginBottom: 10,
   },
   cancelButtonText: {
     color: 'white',
     textAlign: 'center',
     fontWeight: 'bold',
+    marginBottom: 10,
   },
 });
 
