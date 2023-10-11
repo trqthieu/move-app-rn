@@ -13,48 +13,39 @@ import { isValidEmail } from '../utils';
 import request from '../api/request';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function LoginScreen({ navigation }) {
+export default function ChangePasswordScreen({ navigation }) {
   const handleRegister = () => {
     navigation.navigate('RegisterScreen');
   };
 
   const [data, setData] = useState({
-    email: '',
-    password: '',
+    oldPassword: '',
+    newPassword: '',
+    confirmNewPassword: '',
   });
 
-  const getToken = async () => {
-    const accessToken = await AsyncStorage.getItem('accessToken');
-    if (accessToken) {
-      navigation.navigate('HomeScreen');
-    }
-  };
-  useEffect(() => {
-    getToken();
-  });
-
-  const handleLogin = async () => {
-    if (!isValidEmail(data.email)) {
-      ToastAndroid.show('Email không hợp lệ', ToastAndroid.SHORT);
-      return;
-    }
-    if (data.password.length < 6) {
+  const handleChangePassword = async () => {
+    if (
+      data.oldPassword.length < 6 ||
+      data.newPassword.length < 6 ||
+      data.confirmNewPassword.length < 6
+    ) {
       ToastAndroid.show(
         'Độ dài mật khẩu phải từ 6 ký tự trở lên',
         ToastAndroid.SHORT
       );
       return;
     }
-    const response = await request.login({
-      email: data.email,
-      password: data.password,
-    });
-    console.log('response', response);
+    if (data.newPassword !== data.confirmNewPassword) {
+      ToastAndroid.show('Mật khẩu mới không trùng khớp', ToastAndroid.SHORT);
+      return;
+    }
+    const response = await request.changePassword(data);
     if (response?.data?.success === false) {
       ToastAndroid.show(response.data.data.message, ToastAndroid.SHORT);
       return;
     }
-    await AsyncStorage.setItem('accessToken', response.data.accessToken);
+    ToastAndroid.show('Đổi mật khẩu thành công', ToastAndroid.SHORT);
     navigation.navigate('HomeScreen');
   };
   return (
@@ -74,13 +65,14 @@ export default function LoginScreen({ navigation }) {
       <View style={styles.formCard}>
         <View style={styles.formCardRow}>
           <View style={styles.formCardItemFull}>
-            <Text style={styles.formCardItemText}>Email</Text>
+            <Text style={styles.formCardItemText}>Mật khẩu cũ</Text>
             <TextInput
+              secureTextEntry={true}
               style={styles.formCardItemInput}
-              onChangeText={email =>
+              onChangeText={text =>
                 setData({
-                  email: email.trim(),
-                  password: data.password,
+                  ...data,
+                  oldPassword: text.trim(),
                 })
               }
             />
@@ -88,14 +80,29 @@ export default function LoginScreen({ navigation }) {
         </View>
         <View style={styles.formCardRow}>
           <View style={styles.formCardItemFull}>
-            <Text style={styles.formCardItemText}>Mật khẩu</Text>
+            <Text style={styles.formCardItemText}>Mật khẩu mới</Text>
             <TextInput
               secureTextEntry={true}
               style={styles.formCardItemInput}
-              onChangeText={password =>
+              onChangeText={text =>
                 setData({
-                  email: data.email,
-                  password: password.trim(),
+                  ...data,
+                  newPassword: text.trim(),
+                })
+              }
+            />
+          </View>
+        </View>
+        <View style={styles.formCardRow}>
+          <View style={styles.formCardItemFull}>
+            <Text style={styles.formCardItemText}>Xác nhận mật khẩu mới</Text>
+            <TextInput
+              secureTextEntry={true}
+              style={styles.formCardItemInput}
+              onChangeText={text =>
+                setData({
+                  ...data,
+                  confirmNewPassword: text.trim(),
                 })
               }
             />
@@ -105,27 +112,19 @@ export default function LoginScreen({ navigation }) {
         <View style={styles.checkoutWrap}>
           <Text
             style={styles.instructionText}
-            onPress={() => navigation.navigate('ForgotPasswordScreen')}
+            onPress={() => navigation.navigate('HomeScreen')}
           >
-            Quên mật khẩu
+            Trang chủ
           </Text>
           <TouchableOpacity
             activeOpacity={0.8}
             style={styles.btnCheckout}
-            onPress={handleLogin}
+            onPress={handleChangePassword}
           >
-            <Text style={styles.btnCheckoutText}>Đăng nhập</Text>
+            <Text style={styles.btnCheckoutText}>Đổi mật khẩu</Text>
           </TouchableOpacity>
         </View>
       </View>
-      <Text style={styles.textCenter}>hoặc</Text>
-      <TouchableOpacity
-        activeOpacity={0.8}
-        style={styles.btnBooking}
-        onPress={handleRegister}
-      >
-        <Text style={styles.textBooking}>Đăng ký tài khoản CGV</Text>
-      </TouchableOpacity>
     </View>
   );
 }

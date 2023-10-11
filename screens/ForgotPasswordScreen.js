@@ -13,49 +13,30 @@ import { isValidEmail } from '../utils';
 import request from '../api/request';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export default function LoginScreen({ navigation }) {
+export default function ForgotPasswordScreen({ navigation }) {
   const handleRegister = () => {
     navigation.navigate('RegisterScreen');
   };
 
   const [data, setData] = useState({
     email: '',
-    password: '',
   });
 
-  const getToken = async () => {
-    const accessToken = await AsyncStorage.getItem('accessToken');
-    if (accessToken) {
-      navigation.navigate('HomeScreen');
-    }
-  };
-  useEffect(() => {
-    getToken();
-  });
-
-  const handleLogin = async () => {
+  const handleForgotPassword = async () => {
     if (!isValidEmail(data.email)) {
       ToastAndroid.show('Email không hợp lệ', ToastAndroid.SHORT);
       return;
     }
-    if (data.password.length < 6) {
-      ToastAndroid.show(
-        'Độ dài mật khẩu phải từ 6 ký tự trở lên',
-        ToastAndroid.SHORT
-      );
-      return;
-    }
-    const response = await request.login({
-      email: data.email,
-      password: data.password,
-    });
-    console.log('response', response);
+
+    const response = await request.forgotPassword(data);
+    console.log('response', response.data);
+
     if (response?.data?.success === false) {
       ToastAndroid.show(response.data.data.message, ToastAndroid.SHORT);
       return;
     }
-    await AsyncStorage.setItem('accessToken', response.data.accessToken);
-    navigation.navigate('HomeScreen');
+    ToastAndroid.show('Vui lòng kiểm tra email của bạn', ToastAndroid.SHORT);
+    navigation.navigate('LoginScreen');
   };
   return (
     <View style={styles.container}>
@@ -86,35 +67,20 @@ export default function LoginScreen({ navigation }) {
             />
           </View>
         </View>
-        <View style={styles.formCardRow}>
-          <View style={styles.formCardItemFull}>
-            <Text style={styles.formCardItemText}>Mật khẩu</Text>
-            <TextInput
-              secureTextEntry={true}
-              style={styles.formCardItemInput}
-              onChangeText={password =>
-                setData({
-                  email: data.email,
-                  password: password.trim(),
-                })
-              }
-            />
-          </View>
-        </View>
 
         <View style={styles.checkoutWrap}>
           <Text
             style={styles.instructionText}
-            onPress={() => navigation.navigate('ForgotPasswordScreen')}
+            onPress={() => navigation.navigate('LoginScreen')}
           >
-            Quên mật khẩu
+            Đăng nhập
           </Text>
           <TouchableOpacity
             activeOpacity={0.8}
             style={styles.btnCheckout}
-            onPress={handleLogin}
+            onPress={handleForgotPassword}
           >
-            <Text style={styles.btnCheckoutText}>Đăng nhập</Text>
+            <Text style={styles.btnCheckoutText}>Lấy lại mật khẩu</Text>
           </TouchableOpacity>
         </View>
       </View>

@@ -178,6 +178,12 @@ const request = {
   updateMyInfo(user) {
     return axiosClient.put('/auth/information', user);
   },
+  changePassword(data) {
+    return axiosClient.post('/auth/changePassword', data);
+  },
+  forgotPassword(data) {
+    return axiosClient.post('/auth/forgotPassword', data);
+  },
   getMyTickets(handle) {
     if (handle) {
       return axiosClient.get('/auth/myTickets', {
@@ -216,6 +222,20 @@ const request = {
   },
   getNewsById(newsId) {
     return axiosClient.get(`/news/${newsId}`);
+  },
+  getLikeNews(newsId) {
+    return axiosClient.get(`/news/${newsId}/like`);
+  },
+  likeNews(newsId) {
+    return axiosClient.post(`/news/${newsId}/like`);
+  },
+  getCommentNews(newsId) {
+    return axiosClient.get(`/news/${newsId}/comment`);
+  },
+  commentNews(newsId, content) {
+    return axiosClient.post(`/news/${newsId}/comment`, {
+      content,
+    });
   },
 };
 export default request;

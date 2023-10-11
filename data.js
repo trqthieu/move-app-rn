@@ -161,7 +161,7 @@ const data = {
     {
       icon: 'shield-checkmark',
       name: 'Thay đổi mật khẩu',
-      screen: 'HomeScreen',
+      screen: 'ChangePasswordScreen',
     },
     {
       icon: 'information-circle',
