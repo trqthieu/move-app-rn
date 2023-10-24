@@ -35,7 +35,6 @@ export default function ChangeInfoScreen({ navigation }) {
     dob: new Date(),
     gender: '',
   });
-  console.log('data', data);
 
   useEffect(() => {
     getMyInfo();

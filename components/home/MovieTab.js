@@ -1,9 +1,11 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import MovieTabItem from './MovieTabItem';
+import { useNavigation } from '@react-navigation/native';
 
 export default function MovieTab() {
   const [activeTab, setActiveTab] = useState('showing');
+  const navigation = useNavigation();
   const tabList = [
     {
       type: 'showing',
@@ -21,11 +23,16 @@ export default function MovieTab() {
   return (
     <View style={styles.container}>
       <View style={styles.tabList}>
-        {tabList.map((tab,index) => (
-          <MovieTabItem key={index} tab={tab} activeTab={activeTab} setActiveTab={setActiveTab}/>
+        {tabList.map((tab, index) => (
+          <MovieTabItem
+            key={index}
+            tab={tab}
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+          />
         ))}
       </View>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('MovieListScreen')}>
         <Text style={styles.tabItem}>Xem tất cả</Text>
       </TouchableOpacity>
     </View>
@@ -37,7 +44,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 20,
-    paddingVertical:10
+    paddingVertical: 10,
   },
   tabList: {
     flexDirection: 'row',

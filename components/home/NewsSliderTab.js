@@ -1,8 +1,10 @@
 import { View, Text, StyleSheet } from 'react-native';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 export default function NewsSliderTab({ type }) {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <Text style={styles.text}>
@@ -12,7 +14,15 @@ export default function NewsSliderTab({ type }) {
           ? 'Khuyến mãi'
           : 'Trailer'}
       </Text>
-      <TouchableOpacity activeOpacity={0.6} style={styles.button}>
+      <TouchableOpacity
+        activeOpacity={0.6}
+        style={styles.button}
+        onPress={() =>
+          navigation.navigate('NewsListScreen', {
+            type: type,
+          })
+        }
+      >
         <Text>Xem tất cả</Text>
       </TouchableOpacity>
     </View>

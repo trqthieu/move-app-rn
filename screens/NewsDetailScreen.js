@@ -104,7 +104,11 @@ export default function NewsDetailScreen({ navigation, route }) {
                       style={styles.actionIcon}
                     />
                   </TouchableOpacity>
-                  {like.length ? <Text>{like.length}</Text> : <Text>{''}</Text>}
+                  {like.length ? (
+                    <Text style={styles.numberText}>{like.length}</Text>
+                  ) : (
+                    <Text>{''}</Text>
+                  )}
                 </View>
                 <View style={styles.actionItem}>
                   <TouchableOpacity
@@ -119,7 +123,7 @@ export default function NewsDetailScreen({ navigation, route }) {
                     />
                   </TouchableOpacity>
                   {comment.length ? (
-                    <Text>{comment.length}</Text>
+                    <Text style={styles.numberText}>{comment.length}</Text>
                   ) : (
                     <Text>{''}</Text>
                   )}
@@ -133,7 +137,7 @@ export default function NewsDetailScreen({ navigation, route }) {
                       style={styles.actionIcon}
                     />
                   </TouchableOpacity>
-                  <Text>{''}</Text>
+                  <Text style={styles.numberText}>{''}</Text>
                 </View>
                 <Modal
                   animationType='fade'
@@ -170,7 +174,12 @@ export default function NewsDetailScreen({ navigation, route }) {
                                       : require('../assets/images/avatar.jpg')
                                   }
                                 />
-                                <Text>{commentItem.content}</Text>
+                                <View style={styles.contentWrap}>
+                                  <Text style={styles.userName}>
+                                    {commentItem.fullName}
+                                  </Text>
+                                  <Text>{commentItem.content}</Text>
+                                </View>
                               </View>
                             );
                           })
@@ -302,6 +311,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
   },
+  numberText: {
+    fontSize: 12,
+  },
   commentForm: {
     // backgroundColor: '#ccc',
   },
@@ -311,5 +323,15 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     padding: 10,
     marginBottom: 10,
+  },
+  contentWrap: {
+    backgroundColor: '#eee',
+    // width: '100%',
+    padding: 5,
+    borderRadius: 10,
+    paddingHorizontal: 10,
+  },
+  userName: {
+    fontWeight: 'bold',
   },
 });

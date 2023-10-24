@@ -21,6 +21,8 @@ import MemberScreen from './screens/MemberScreen';
 import ChangeInfoScreen from './screens/ChangeInfoScreen';
 import ChangePasswordScreen from './screens/ChangePasswordScreen';
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
+import MovieListScreen from './screens/MovieListScreen';
+import NewsListScreen from './screens/NewsListScreen';
 import { BackHandler, Alert } from 'react-native';
 import { useEffect } from 'react';
 const Stack = createNativeStackNavigator();
@@ -115,6 +117,11 @@ export default function App() {
                 name='ForgotPasswordScreen'
                 component={ForgotPasswordScreen}
               />
+              <Stack.Screen
+                name='MovieListScreen'
+                component={MovieListScreen}
+              />
+              <Stack.Screen name='NewsListScreen' component={NewsListScreen} />
             </Stack.Navigator>
           </SafeAreaView>
         </NavigationContainer>

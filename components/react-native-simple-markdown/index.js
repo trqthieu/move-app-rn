@@ -40,7 +40,6 @@ function MarkdownToComponent({ markdownText }) {
     // Handle image links
     else if (line.startsWith('![') && line.endsWith(')')) {
       const imageUrl = line.match(/\((.*?)\)/)[1];
-      console.log('imageUrl', imageUrl);
       components.push(
         <Image
           key={i}

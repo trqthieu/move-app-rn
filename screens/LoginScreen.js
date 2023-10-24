@@ -49,7 +49,6 @@ export default function LoginScreen({ navigation }) {
       email: data.email,
       password: data.password,
     });
-    console.log('response', response);
     if (response?.data?.success === false) {
       ToastAndroid.show(response.data.data.message, ToastAndroid.SHORT);
       return;

@@ -29,7 +29,6 @@ export default function ForgotPasswordScreen({ navigation }) {
     }
 
     const response = await request.forgotPassword(data);
-    console.log('response', response.data);
 
     if (response?.data?.success === false) {
       ToastAndroid.show(response.data.data.message, ToastAndroid.SHORT);
